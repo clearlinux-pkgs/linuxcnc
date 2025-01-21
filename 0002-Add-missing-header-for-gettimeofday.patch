@@ -1,0 +1,24 @@
+From 4e4ccde9474399779fb766de196590420a7d41c5 Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 21 Jan 2025 14:40:11 -0800
+Subject: [PATCH] Add missing header for gettimeofday
+
+---
+ src/emc/rs274ngc/gcodemodule.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/emc/rs274ngc/gcodemodule.cc b/src/emc/rs274ngc/gcodemodule.cc
+index ff222e7..421af64 100644
+--- a/src/emc/rs274ngc/gcodemodule.cc
++++ b/src/emc/rs274ngc/gcodemodule.cc
+@@ -25,6 +25,7 @@
+ #include "canon.hh"
+ #include "config.h"		// LINELEN
+ #include "units.h"
++#include "sys/time.h"
+ 
+ int _task = 0; // control preview behaviour when remapping
+ 
+-- 
+2.48.1
+

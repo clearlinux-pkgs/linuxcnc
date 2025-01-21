@@ -1,0 +1,95 @@
+From 802d3e535974b9bd1df839e5aa247cd2bc444b43 Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 21 Jan 2025 13:58:09 -0800
+Subject: [PATCH] Find alternate readline
+
+If readline alternative libedit is used to avoid GPL-3 licensing issues,
+make sure we can find its alternative header location.
+---
+ src/configure.ac                  | 10 ++++++++++
+ src/emc/sai/driver.cc             |  4 ++++
+ src/hal/utils/halcmd_completion.h |  5 +++++
+ 3 files changed, 19 insertions(+)
+
+diff --git a/src/configure.ac b/src/configure.ac
+index 04a5b1a..a224901 100644
+--- a/src/configure.ac
++++ b/src/configure.ac
+@@ -1529,6 +1529,7 @@ LIBS=
+ # check for readline.h and friends, optional for halcmd
+ AC_CHECK_HEADERS(readline/readline.h, [HAVE_READLINE=yes], [HAVE_READLINE=no])
+ AC_CHECK_HEADERS(readline/history.h, [], [HAVE_READLINE=no])
++AC_CHECK_HEADERS(editline/readline.h, [HAVE_READLINE=yes], [HAVE_READLINE=no])
+ 
+ echo "Trying readline without -ltermcap"
+ AC_CHECK_LIB(readline, readline, [HAVE_READLINE_NOTERMCAP=yes], [])
+@@ -1536,6 +1537,8 @@ unset ac_cv_lib_readline_readline
+ echo "Trying readline with -ltermcap"
+ AC_CHECK_LIB(readline, readline, [HAVE_READLINE_TERMCAP=yes], [], -ltermcap)
+ unset ac_cv_lib_readline_readline
++echo "Trying libedit"
++AC_CHECK_LIB(edit, readline, [HAVE_LIBEDIT=yes], [])
+ 
+ if test "x$HAVE_READLINE_NOTERMCAP" = "xyes"; then
+     echo "Readline does not require -ltermcap"
+@@ -1543,6 +1546,9 @@ if test "x$HAVE_READLINE_NOTERMCAP" = "xyes"; then
+ elif test "x$HAVE_READLINE_TERMCAP" = "xyes"; then
+     echo "Readline requires -ltermcap"
+     READLINE_LIBS="-lreadline -ltermcap"
++elif test "x$HAVE_LIBEDIT" = "xyes"; then
++    echo "Using libedit instead of readline"
++    READLINE_LIBS="-ledit"
+ else
+     HAVE_READLINE=no
+ fi
+@@ -1550,7 +1556,11 @@ fi
+ AC_MSG_CHECKING([whether readline license is compatible with GPL-2])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+         #include <stdio.h>
++        #if HAVE_EDITLINE_READLINE_H
++        #include <editline/readline.h>
++        #else
+         #include <readline/readline.h>
++        #endif
+     ]], [[
+         #if RL_VERSION_MAJOR > 5
+         #error Readline version 6 and up are not compatible with GPL-2
+diff --git a/src/emc/sai/driver.cc b/src/emc/sai/driver.cc
+index a3d7c0e..4611fd8 100644
+--- a/src/emc/sai/driver.cc
++++ b/src/emc/sai/driver.cc
+@@ -31,8 +31,12 @@
+ #include <stdarg.h>
+ #include <string>
+ 
++#if HAVE_EDITLINE_READLINE_H
++#include <editline/readline.h>
++#else
+ #include <readline/readline.h>
+ #include <readline/history.h>
++#endif
+ #include <glob.h>
+ #include <wordexp.h>
+ #include <rtapi_string.h>
+diff --git a/src/hal/utils/halcmd_completion.h b/src/hal/utils/halcmd_completion.h
+index ada16d7..353efa6 100644
+--- a/src/hal/utils/halcmd_completion.h
++++ b/src/hal/utils/halcmd_completion.h
+@@ -40,9 +40,14 @@
+ #ifndef HALCMD_COMPLETION_H
+ #define HALCMD_COMPLETION_H
+ 
++#include "config.h"
+ #include <stdio.h>
++#if HAVE_EDITLINE_READLINE_H
++#include <editline/readline.h>
++#else
+ #include <readline/readline.h>
+ #include <readline/history.h>
++#endif
+ 
+ extern int comp_id;
+ extern void halcmd_init_readline();
+-- 
+2.48.1
+

@@ -1,0 +1,12 @@
+2.9.3
+boost-dev
+intltool-dev
+libXScrnSaver-dev
+libtirpc-dev
+libusb-dev
+perl(Scalar::Util)
+pkgconfig(libtirpc)
+procps-ng
+readline-dev
+tcl-dev
+tk-dev

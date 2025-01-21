@@ -1,0 +1,37 @@
+Configure miss: BLT using /usr/bin/tclsh8.6
+Configure miss: cc version
+Configure miss: g++ option to enable C++11 features
+Configure miss: gettext in -lintl
+Configure miss: libgpiod < 2.0.0
+Configure miss: main in -lpython
+Configure miss: main in -lpythonm
+Configure miss: python2.1
+Configure miss: python2.2
+Configure miss: python2.3
+Configure miss: python2.4
+Configure miss: python2.5
+Configure miss: python2.6
+Configure miss: python2.7
+Configure miss: python3.0
+Configure miss: python3.1
+Configure miss: python3.10
+Configure miss: python3.11
+Configure miss: python3.2
+Configure miss: python3.3
+Configure miss: python3.4
+Configure miss: python3.5
+Configure miss: python3.6
+Configure miss: python3.7
+Configure miss: python3.8
+Configure miss: python3.9
+Configure miss: readline in -lreadline
+Configure miss: readline in -lreadline
+Configure miss: readline/history.h
+Configure miss: readline/readline.h
+Configure miss: rpc/rpc.h
+Configure miss: rtai-config
+Configure miss: whether boost_python-boost_python313 is the correct library
+Configure miss: whether boost_python313 is the correct library
+Configure miss: whether to build documentation
+Configure miss: xeno-config
+Configure miss: yapps

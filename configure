@@ -1,0 +1,4 @@
+--prefix=/usr
+--with-realtime=uspace
+--with-boost-python=boost_python$(python3 --version | awk '{print $2}' | cut -d '.' -f 1-2 | tr -d '.')
+--disable-gtk2

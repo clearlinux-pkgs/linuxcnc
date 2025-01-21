@@ -1,0 +1,1 @@
+sed -i 's/INSTALL=install -o root/INSTALL=install/' ./src/Makefile
