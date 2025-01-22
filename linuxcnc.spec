@@ -7,7 +7,7 @@
 #
 Name     : linuxcnc
 Version  : 2.9.3
-Release  : 2
+Release  : 3
 URL      : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Source0  : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Summary  : No detailed summary available
@@ -22,6 +22,7 @@ Requires: linuxcnc-man = %{version}-%{release}
 Requires: linuxcnc-python = %{version}-%{release}
 Requires: linuxcnc-python3 = %{version}-%{release}
 Requires: bwidget
+Requires: pypi-pyopengl-python3
 BuildRequires : asciidoc
 BuildRequires : boost-dev
 BuildRequires : bwidget
@@ -173,7 +174,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1737505384
+export SOURCE_DATE_EPOCH=1737505853
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -212,7 +213,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1737505384
+export SOURCE_DATE_EPOCH=1737505853
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/INSTALL=install -o root/INSTALL=install/' ./src/Makefile
