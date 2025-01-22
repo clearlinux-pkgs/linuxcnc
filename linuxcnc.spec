@@ -7,7 +7,7 @@
 #
 Name     : linuxcnc
 Version  : 2.9.3
-Release  : 1
+Release  : 2
 URL      : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Source0  : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Summary  : No detailed summary available
@@ -21,6 +21,7 @@ Requires: linuxcnc-locales = %{version}-%{release}
 Requires: linuxcnc-man = %{version}-%{release}
 Requires: linuxcnc-python = %{version}-%{release}
 Requires: linuxcnc-python3 = %{version}-%{release}
+Requires: bwidget
 BuildRequires : asciidoc
 BuildRequires : boost-dev
 BuildRequires : bwidget
@@ -54,8 +55,9 @@ BuildRequires : tk-dev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0001-Find-alternate-readline.patch
-Patch2: 0002-Add-missing-header-for-gettimeofday.patch
+Patch1: stateless.patch
+Patch2: 0001-Find-alternate-readline.patch
+Patch3: 0002-Add-missing-header-for-gettimeofday.patch
 
 %description
 info: create system information file
@@ -164,13 +166,14 @@ python3 components for the linuxcnc package.
 cd %{_builddir}/linuxcnc-2.9.3
 %patch -P 1 -p1
 %patch -P 2 -p1
+%patch -P 3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1737499543
+export SOURCE_DATE_EPOCH=1737505384
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -209,7 +212,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1737499543
+export SOURCE_DATE_EPOCH=1737505384
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/INSTALL=install -o root/INSTALL=install/' ./src/Makefile
@@ -229,6 +232,11 @@ GOAMD64=v2
 popd
 %find_lang gmoccapy
 %find_lang linuxcnc
+## install_append content
+# Move sample config file to default location
+mkdir -p %{buildroot}/usr/share/defaults/linuxcnc/
+mv %{buildroot}/etc/linuxcnc/* %{buildroot}/usr/share/defaults/linuxcnc/
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -449,6 +457,7 @@ popd
 /usr/share/axis/tcl/dialog.tcl
 /usr/share/axis/tcl/sb.tcl
 /usr/share/axis/tcl/support.tcl
+/usr/share/defaults/linuxcnc/rtapi.conf
 /usr/share/glade/catalogs/hal_python.xml
 /usr/share/glade/pixmaps/hicolor/22x22/actions/widget-gladevcp-calc.png
 /usr/share/glade/pixmaps/hicolor/22x22/actions/widget-gladevcp-combi_dro.png

@@ -1,0 +1,3 @@
+# Move sample config file to default location
+mkdir -p %{buildroot}/usr/share/defaults/linuxcnc/
+mv %{buildroot}/etc/linuxcnc/* %{buildroot}/usr/share/defaults/linuxcnc/

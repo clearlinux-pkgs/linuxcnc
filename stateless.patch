@@ -1,0 +1,25 @@
+From 0b678c1b26af8eeaf9c131f88d11c9804e557dc8 Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 21 Jan 2025 16:16:49 -0800
+Subject: [PATCH] Stateless
+
+---
+ scripts/realtime.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/scripts/realtime.in b/scripts/realtime.in
+index 5de3486..d3e6cd7 100644
+--- a/scripts/realtime.in
++++ b/scripts/realtime.in
+@@ -63,6 +63,8 @@ CheckConfig(){
+     else
+         if [ -f $sysconfdir/linuxcnc/rtapi.conf ]; then
+                 RTAPICONF=$sysconfdir/linuxcnc/rtapi.conf
++        elif [ -f /usr/share/defaults/linuxcnc/rtapi.conf ]; then
++                RTAPICONF=/usr/share/defaults/linuxcnc/rtapi.conf
+         fi
+     fi
+     if [ -z "$RTAPICONF" ] ; then
+-- 
+2.48.1
+
