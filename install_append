@@ -1,3 +1,6 @@
 # Move sample config file to default location
 mkdir -p %{buildroot}/usr/share/defaults/linuxcnc/
 mv %{buildroot}/etc/linuxcnc/* %{buildroot}/usr/share/defaults/linuxcnc/
+
+# No suid files allowed
+chmod u-s %{buildroot}/usr/bin/*

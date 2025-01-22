@@ -7,7 +7,7 @@
 #
 Name     : linuxcnc
 Version  : 2.9.3
-Release  : 4
+Release  : 5
 URL      : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Source0  : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Summary  : No detailed summary available
@@ -176,7 +176,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1737506930
+export SOURCE_DATE_EPOCH=1737562564
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -215,7 +215,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1737506930
+export SOURCE_DATE_EPOCH=1737562564
 rm -rf %{buildroot}
 ## install_prepend content
 sed -i 's/INSTALL=install -o root/INSTALL=install/' ./src/Makefile
@@ -239,6 +239,9 @@ popd
 # Move sample config file to default location
 mkdir -p %{buildroot}/usr/share/defaults/linuxcnc/
 mv %{buildroot}/etc/linuxcnc/* %{buildroot}/usr/share/defaults/linuxcnc/
+
+# No suid files allowed
+chmod u-s %{buildroot}/usr/bin/*
 ## install_append end
 
 %files
