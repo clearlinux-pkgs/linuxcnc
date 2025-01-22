@@ -1,0 +1,24 @@
+From 08b668f2bb14877b7f5c45116004f08dae25b597 Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 21 Jan 2025 16:43:15 -0800
+Subject: [PATCH] Export $TCLLIBPATH before calling TCL progs
+
+---
+ scripts/linuxcnc.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/scripts/linuxcnc.in b/scripts/linuxcnc.in
+index 75abe58..e6836e9 100644
+--- a/scripts/linuxcnc.in
++++ b/scripts/linuxcnc.in
+@@ -306,6 +306,7 @@ export LINUXCNC_LANG_DIR
+ export REALTIME
+ export HALCMD
+ export LINUXCNC_NCFILES_DIR
++export TCLLIBPATH="$LINUXCNC_TCL_DIR"
+ 
+ [ -z $RUNTESTS ] && echo "LINUXCNC - $LINUXCNCVERSION" 
+ 
+-- 
+2.48.1
+

@@ -4,5 +4,6 @@
 /etc/linuxcnc:
 TkLinuxCNC
 X11
+X11' ']'
 app-defaults
 linuxcnc

@@ -1,3 +1,4 @@
 stateless.patch
 0001-Find-alternate-readline.patch
 0002-Add-missing-header-for-gettimeofday.patch
+0003-Export-TCLLIBPATH-before-calling-TCL-progs.patch
