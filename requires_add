@@ -4,3 +4,4 @@ bwidget
 pypi(configobj)
 pypi(gi)
 pypi(pyopengl)
+tclx
