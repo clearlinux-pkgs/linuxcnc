@@ -7,7 +7,7 @@
 #
 Name     : linuxcnc
 Version  : 2.9.3
-Release  : 7
+Release  : 8
 URL      : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Source0  : https://github.com/LinuxCNC/linuxcnc/archive/v2.9.3/linuxcnc-2.9.3.tar.gz
 Summary  : No detailed summary available
